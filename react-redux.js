@@ -10,6 +10,14 @@ const reducer = (state = initial, action) => {
     return { counter: state.counter + 1 };
 
   }
+  else if (action.type === 'DECREMENT') {
+    return { counter: state.counter - 1 };
+  }
+  else if (action.type === 'addition')
+    return { counter: state.counter + action.payload.number }
+
+
+  return state;  // Return the current state if action type doesn't match
 }
 const store = redux.createStore(reducer);
 
@@ -17,7 +25,9 @@ const store = redux.createStore(reducer);
 const subscriber = () => {
   const state = store.getState();  // Get the current state from the store
   console.log(state);  // Log the current state to the console
+
 }
+
 
 // Subscribe the subscriber function to the store
 store.subscribe(subscriber);
@@ -25,4 +35,11 @@ store.subscribe(subscriber);
 // Dispatch an action of type 'INCREMENT' to update the state
 store.dispatch({
   type: 'INCREMENT'
+})
+store.dispatch({
+  type: 'DECREMENT'
+})
+// using payload
+store.dispatch({
+  type: 'addition', payload: { number: 7 }
 })
